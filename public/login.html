@@ -13,23 +13,24 @@
 </head>
 
 <body>
-    <div class = logo>
-        <h1 class="company">Company Name</h1>
+    <div class="llogo">
+        <h1 class="lcompany">Company Name</h1>
+        <h2 class="lsub">Schedule</h2>
     </div>
 
-    <div class="homepage"> 
-        <div class="login"> 
-            <h2 class="header">LOGIN</h1>
+    <div class="lhomepage"> 
+        <div class="llogin"> 
+            <h2 class="lheader">LOGIN</h2>
         </div>
 
-        <form class="form">
-            <label class="label" for="usercode">Username</label>
-            <input id="usercode" type="text" class="input input--usercode">
+        <form class="lform" action="/login" method="POST">
+            <label class="llabel" for="username">Username</label>
+            <input id="username" name="username" type="text" class="linput input--username">
 
-            <label class="label" for="password">Password</label>
-            <input id="password" type="text" class="input input--password">
+            <label class="llabel" for="password">Password</label>
+            <input id="password" name="password" type="password" class="linput input--password">
 
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="lbtn">Submit</button>
 
         </form>
     </div>

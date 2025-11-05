@@ -1,6 +1,6 @@
-import mysql from 'mysql2'
-import dotenv, { config } from 'dotenv'
-dotenv.config()
+
+const mysql = require('mysql2')
+require('dotenv').config()
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
@@ -9,8 +9,16 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
+pool.getConnection()
+    .then(conn => {conn.release(); console.log('MySQL Connected') })
+    .catch(err => {console.error('MySQL Connection Error:', err)})
+
+
 async function getEmployees() {
-    const [rows] =  await pool.query("SELCET * FROM employee")
+    const [rows] =  await pool.query(`
+        SELECT * 
+        FROM employee
+        WHERE NOT manager = '1'`)
     return rows
 }
 async function getEmployee(id) {
@@ -22,5 +30,18 @@ async function getEmployee(id) {
         return rows [0]
 }
 
+async function validateUser(username, password) {
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM employee
+        WHERE username = ?
+        limit 1
+        `, [username])   
 
+    if (!rows || rows.length ===0) return null
+    const user = rows[0]
+    if (user.password === password) return user
+    return null
+}
 
+module.exports = { getEmployees, getEmployee, validateUser}
