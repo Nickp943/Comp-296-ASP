@@ -1,0 +1,185 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema comp-296_asp
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema comp-296_asp
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `comp-296_asp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `comp-296_asp` ;
+
+-- -----------------------------------------------------
+-- Table `comp-296_asp`.`employee`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comp-296_asp`.`employee` (
+  `employee_id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(25) NOT NULL,
+  `last_name` VARCHAR(25) NOT NULL,
+  `phonenumber` VARCHAR(10) NULL DEFAULT NULL,
+  `email` VARCHAR(30) NULL DEFAULT NULL,
+  `username` VARCHAR(30) NOT NULL,
+  `password` VARCHAR(30) NOT NULL,
+  `manager` TINYINT NOT NULL,
+  PRIMARY KEY (`employee_id`),
+  UNIQUE INDEX `employee_id_UNIQUE` (`employee_id` ASC) VISIBLE,
+  UNIQUE INDEX `code_UNIQUE` (`username` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 24
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci
+COMMENT = '		';
+
+
+-- -----------------------------------------------------
+-- Table `comp-296_asp`.`availability`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comp-296_asp`.`availability` (
+  `availability_id` INT NOT NULL AUTO_INCREMENT,
+  `employee_id` INT NULL DEFAULT NULL,
+  `weekday` VARCHAR(20) NULL DEFAULT NULL,
+  `morn_aval` TINYINT NULL DEFAULT NULL,
+  `night_aval` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`availability_id`),
+  UNIQUE INDEX `availability_id_UNIQUE` (`availability_id` ASC) VISIBLE,
+  INDEX `fk_employee_id_idx` (`employee_id` ASC) VISIBLE,
+  CONSTRAINT `availability_fk_employee_id`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `comp-296_asp`.`employee` (`employee_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 26
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `comp-296_asp`.`request_off`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comp-296_asp`.`request_off` (
+  `request_off_id` INT NOT NULL AUTO_INCREMENT,
+  `date` DATETIME NULL DEFAULT NULL,
+  `shift` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`request_off_id`),
+  UNIQUE INDEX `request_off_id_UNIQUE` (`request_off_id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `comp-296_asp`.`employee_request_off`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comp-296_asp`.`employee_request_off` (
+  `employee_request_off_id` INT NOT NULL AUTO_INCREMENT,
+  `employee_id` INT NOT NULL,
+  `request_off_id` INT NOT NULL,
+  `created_on` DATETIME NOT NULL,
+  `approved` TINYINT NOT NULL,
+  PRIMARY KEY (`employee_request_off_id`),
+  UNIQUE INDEX `employee_request_off_id_UNIQUE` (`employee_request_off_id` ASC) VISIBLE,
+  INDEX `request_off_fk_employee_id_idx` (`employee_id` ASC) VISIBLE,
+  INDEX `fk_request_off_id_idx` (`request_off_id` ASC) VISIBLE,
+  CONSTRAINT `fk_request_off_id`
+    FOREIGN KEY (`request_off_id`)
+    REFERENCES `comp-296_asp`.`request_off` (`request_off_id`),
+  CONSTRAINT `request_off_fk_employee_id`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `comp-296_asp`.`employee` (`employee_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `comp-296_asp`.`schedule_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comp-296_asp`.`schedule_info` (
+  `schedule_id` INT NOT NULL AUTO_INCREMENT,
+  `week` DATE NOT NULL,
+  `day` VARCHAR(20) NOT NULL,
+  `start_time` TIME NOT NULL,
+  `end_time` TIME NOT NULL,
+  `shift` TINYINT NOT NULL,
+  PRIMARY KEY (`schedule_id`),
+  UNIQUE INDEX `schedule_id_UNIQUE` (`schedule_id` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `comp-296_asp`.`employee_schedule`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comp-296_asp`.`employee_schedule` (
+  `employee_schedule_id` INT NOT NULL AUTO_INCREMENT,
+  `employee_id` INT NOT NULL,
+  `schedule_id` INT NOT NULL,
+  PRIMARY KEY (`employee_schedule_id`),
+  UNIQUE INDEX `employee_schedule_id_UNIQUE` (`employee_schedule_id` ASC) VISIBLE,
+  INDEX `fk_employee_id_idx` (`employee_id` ASC) VISIBLE,
+  INDEX `fk_schedule_id_idx` (`schedule_id` ASC) VISIBLE,
+  INDEX `schedule_fk_employee_id_idx` (`employee_id` ASC) VISIBLE,
+  INDEX `schedule_fk_schedule_id_idx` (`schedule_id` ASC) VISIBLE,
+  CONSTRAINT `fk_schedule_id`
+    FOREIGN KEY (`schedule_id`)
+    REFERENCES `comp-296_asp`.`schedule_info` (`schedule_id`),
+  CONSTRAINT `schedule_fk_employee_id`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `comp-296_asp`.`employee` (`employee_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Employee Inserts
+-- -----------------------------------------------------
+INSERT INTO employee (first_name, last_name, email, phonenumber, username, password, manager) VALUES (Gary, Donald, 1233455678, gdonald@gmail.com, Test1, password1, 0)
+INSERT INTO employee (first_name, last_name, email, phonenumber, username, password, manager) VALUES (Ben, Manager, 1436548745, bmanager@gmail.com, Test2, password2, 1)
+INSERT INTO employee (first_name, last_name, email, phonenumber, username, password, manager) VALUES (Will, Eirn, 9834513467, werin@gmail.com, Test3, password3, 0)
+INSERT INTO employee (first_name, last_name, email, phonenumber, username, password, manager) VALUES (John, Smith , 0981453674, jsmith@gmail.com, Test4, password4, 0)
+INSERT INTO employee (first_name, last_name, email, phonenumber, username, password, manager) VALUES (Puffer, Fish, 6789623453, pfish@gmail.com, Test5, password5, 0)
+
+
+-- -----------------------------------------------------
+-- availability Inserts
+-- -----------------------------------------------------
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (1, monday, 1, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (1, tuesday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (1, wednesday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (1, thursday, 0, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (1, friday, 1, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (3, saturday, 1, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (3, monday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (3, tuesday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (3, wednesday, 1, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (3, thursday, 1, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (3, friday, 0, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (4, saturday, 1, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (4, monday, 1, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (4, tuesday, 0, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (4, wednesday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (4, thursday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (4, friday, 1, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, saturday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, monday, 1, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, tuesday, 0, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, wednesday, 1, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, thursday, 0, 0)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, friday, 1, 1)
+INSERT INTO availability (employeeid, weekday, morn_aval, night_aval) VALUES (5, saturday, 1, 1)
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
