@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/styles.css">
+
+    <title>Account Page</title>
+</head>
+<body>    
+    <div class="alogo">
+        <div class="acompname">
+            <h1 class="acompany">Company Name</h1>
+            <h2 class="asub">Schedule</h2>
+        </div>
+        <div class="awelcome">
+            <h2 class="auser">Welcome, <span id="username"></span>!</h2>
+        </div>
+    </div>
+    <div class="apage">
+
+         <div class="anavpage"> 
+            <div class="ahome"> 
+                <h2 class="aheader">Account</h2>
+            </div>
+
+            <div class="anavbar">
+                <nav class="anav">
+                    <ul class="alist">
+                        <li class="ali"><a class="alink" href="/home">Home</a></li>
+                        <li class="ali"><a class="alink" href="/request">Request Off</a></li>
+                        <li class="ali"><a class="alink" href="/account">Account</a></li>
+                        <li class="ali"><a class="alink" href="/logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="aacform">
+            <h2 class="alabel">Information</h2>
+            <form id="accountform" class="aform">
+                <label>First name</label>
+                <input id="first_name" class="ainput" name="first_name" type="text"/>
+
+                <label>Last name</label>
+                <input id="last_name" class="ainput" name="last_name" type="text"/>
+
+                <label>Username</label>
+                <input id="username" class="ainput" name="username" type="text"/>
+
+                <label>Email</label>
+                <input id="email" class="ainput" name="email" type="email"/>
+
+                <label>Phone</label>
+                <input id="phonenumber" class="ainput" name="phonenumber" type="tel"/>
+
+                <label>New password (leave blank to keep)</label>
+                <input id="password" class="ainput" name="password" type="password"/>
+
+                <div class="asave">
+                    <button type="submit">Save</button>
+                    <span id="user-status"></span>
+                </div>
+            </form>
+        </div>
+
+        
+        <div class="aavform">
+            <h2 class="alabel">Availability</h2>
+            <form id="avilabilityform" class="aform">
+                <div>
+                    <label class="aday">Monday</label>
+                    <label><input type="checkbox" value="MondayDay" /> Day</label>
+                    <label><input type="checkbox" value="MondayNight" /> Night</label>
+                </div>
+                <div>
+                    <label class="aday">Tuesday</label>
+                    <label><input type="checkbox" value="TuesdayDay" /> Day</label>
+                    <label><input type="checkbox" value="TuesdayNight" /> Night</label>
+                </div>
+                <div>
+                    <label class="aday">Wednesday</label>
+                    <label><input type="checkbox" value="WednesdayDay" /> Day</label>
+                    <label><input type="checkbox" value="WednesdayNight" /> Night</label>
+                </div>
+                <div>
+                    <label class="aday">Thursday</label>
+                    <label><input type="checkbox" value="ThursdayDay" /> Day</label>
+                    <label><input type="checkbox" value="ThursdayNight" /> Night</label>
+                </div>
+                <div>
+                    <label class="aday">Friday</label>
+                    <label><input type="checkbox" value="FridayDay" /> Day</label>
+                    <label><input type="checkbox" value="FridayNight" /> Night</label>
+                </div>
+                <div>
+                    <label class="aday">Saturday</label>
+                    <label><input type="checkbox" value="SaturdayDay" /> Day</label>
+                    <label><input type="checkbox" value="SaturdayNight" /> Night</label>
+                </div>
+
+                <div class="asave">
+                    <button type="submit">Save</button>   
+                    <span id="availability-status"></span>            
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/public/accountfunctions.js"></script>
+
+</body>
+</html>

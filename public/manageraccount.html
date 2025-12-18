@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/styles.css">
+
+    <title>Account Page</title>
+</head>
+<body>    
+    
+    <div class="alogo">
+        <div class="acompname">
+            <h1 class="acompany">Company Name</h1>
+            <h2 class="asub">Schedule</h2>
+        </div>
+        <div class="awelcome">
+            <h2 class="auser">Welcome, <span id="username"></span>!</h2>
+        </div>
+    </div>
+
+    <div class="maaccountemployee">
+        <div class="apage">
+
+            <div class="anavpage"> 
+                <div class="ahome"> 
+                    <h2 class="aheader">Account</h2>
+                </div>
+
+                <div class="anavbar">
+                    <nav class="anav">
+                        <ul class="alist">
+                            <li class="ali"><a class="alink" href="/managerhome">Home</a></li>
+                            <li class="ali"><a class="alink" href="/request">Request Off</a></li>
+                            <li class="ali"><a class="alink" href="/manageraccount">Account</a></li>
+                            <li class="ali"><a class="alink" href="/logout">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="maemployees">
+            <h2 class="malable">Employees</h2>
+            <table class="maemployeetable" id="employeetable">
+                <thead class="maemployeetable">
+                    <tr class="maemployeetable">
+                        <th class="maemployeetable">ID</th>
+                        <th class="maemployeetable">Name</th>
+                        <th class="maemployeetable">Username</th>
+                        <th class="maemployeetable">Email</th>
+                        <th class="maemployeetable">Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    
+
+        <div class="macreate">
+            <h2 class="malable">Create New Employee</h2>
+            <form id="createemployeeform">
+                <label>First name</label>
+                <input id="newfirst" class="mainput" name="first_name" type="text" />
+
+                <label>Last name</label>
+                <input id="newlast" class="mainput" name="last_name" type="text" />
+
+                <label>Username</label>
+                <input id="newusername" class="mainput" name="username" type="text" required />
+
+                <label>Password</label>
+                <input id="newpassword" class="mainput" name="password" type="password" required />
+
+                <label>Email</label>
+                <input id="newemail" class="mainput" name="email" type="email" />
+
+                <label>Phone</label>
+                <input id="newphone" class="mainput" name="phonenumber" type="tel" />
+
+                <label><input id="newmanager" type="checkbox" /> Manager account</label>
+                <div>
+                    <button type="submit">Create Employee</button>
+                    <span id="createstatus"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/public/maccountfunctions.js"></script>
+
+</body>
